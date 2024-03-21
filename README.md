@@ -1,4 +1,4 @@
-물론입니다. 아래는 요구사항에 맞게 작성된 HTML 코드입니다.
+캐릭터에 광을 추가하는 기능을 추가한 코드입니다. 사용자가 선택한 광을 캐릭터 이미지에 추가하여 표시합니다.
 
 ```html
 <!DOCTYPE html>
@@ -6,54 +6,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>두뇌 🍬 게임</title>
+    <title>로블록스 프로필 생성기</title>
 </head>
 <body>
 
 <header>
-    <h1>두뇌 🍬 게임</h1>
+    <h1>로블록스 프로필 생성기</h1>
 </header>
 
-<section id="signup">
-    <h2>회원가입</h2>
-    <form action="/signup" method="post">
-        <label for="username">아이디:</label>
-        <input type="text" id="username" name="username" maxlength="100" required><br><br>
-        <label for="password">비밀번호:</label>
-        <input type="password" id="password" name="password" maxlength="100" required><br><br>
-        <button type="submit">가입하기</button>
-    </form>
+<section id="profile">
+    <h2>로블록스 닉네임 입력</h2>
+    <input type="text" id="username" placeholder="로블록스 닉네임을 입력하세요">
+    <button id="generateBtn">프로필 생성</button>
 </section>
 
-<section id="game">
-    <h2>두뇌 게임</h2>
-    <button id="startBtn">시작하기</button>
-    <button id="exitBtn">나가기</button>
+<section id="character">
+    <h2>로블록스 캐릭터</h2>
+    <div id="characterPreview"></div>
 </section>
 
-<section id="coupon" style="display: none;">
-    <h2>간식 쿠폰</h2>
-    <p>축하합니다! 두뇌 게임을 완료하셨습니다.</p>
-    <p>간식 쿠폰을 획득하셨습니다.</p>
-    <p>30% 확률로 치킨 피자 쿠폰을 획득하실 수 있습니다.</p>
-    <div id="advertisement">
-        <!-- 쿠팡 광고 -->
-    </div>
+<section id="background">
+    <h2>배경 설정</h2>
+    <select id="backgroundSelect">
+        <option value="city.jpg">도시</option>
+        <option value="forest.jpg">숲</option>
+        <option value="beach.jpg">해변</option>
+    </select>
 </section>
 
-<footer>
-    <p>여기에는 쿠팡 광고가 있어서 수익을 창출할 수 있습니다.</p>
-</footer>
+<section id="lighting">
+    <h2>광 설정</h2>
+    <select id="lightingSelect">
+        <option value="none">광 없음</option>
+        <option value="sunshine">햇빛</option>
+        <option value="moonlight">달빛</option>
+        <option value="spotlight">스포트라이트</option>
+    </select>
+</section>
 
 <script>
-    document.getElementById('startBtn').addEventListener('click', function() {
-        // 게임 시작 로직 추가
-        alert('두뇌 게임을 시작합니다!');
+    document.getElementById('generateBtn').addEventListener('click', function() {
+        var username = document.getElementById('username').value;
+        var characterUrl = 'https://www.roblox.com/Thumbs/Avatar.ashx?username=' + username;
+        var lighting = document.getElementById('lightingSelect').value;
+        var characterPreview = document.getElementById('characterPreview');
+        characterPreview.innerHTML = '<img src="' + characterUrl + '" alt="로블록스 캐릭터">';
+        
+        if (lighting !== 'none') {
+            var lightingImage = document.createElement('img');
+            lightingImage.src = lighting + '.png';
+            lightingImage.alt = lighting;
+            characterPreview.appendChild(lightingImage);
+        }
     });
 
-    document.getElementById('exitBtn').addEventListener('click', function() {
-        // 나가기 로직 추가
-        alert('게임에서 나갑니다.');
+    document.getElementById('backgroundSelect').addEventListener('change', function() {
+        var selectedBackground = document.getElementById('backgroundSelect').value;
+        document.body.style.backgroundImage = 'url(' + selectedBackground + ')';
     });
 </script>
 
@@ -61,4 +70,4 @@
 </html>
 ```
 
-이 코드를 사용하여 웹페이지를 만들려면 추가적인 개발 작업이 필요하며, 실제로 동작하는 웹사이트를 구현하기 위해서는 JavaScript 및 서버 측 코드와의 연동이 필요합니다.
+이 코드를 사용하면 로블록스 닉네임을 입력하고 "프로필 생성" 버튼을 클릭하면 해당 사용자의 캐릭터를 표시하고, 배경을 선택하여 설정할 수 있습니다. 또한 광을 선택하여 캐릭터에 추가할 수 있습니다.
